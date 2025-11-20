@@ -48,7 +48,8 @@ export default function App() {
         {/* show topbar when logged in */}
         {user && (
           <div className="w-full flex justify-between items-center px-4 py-3 border-b bg-white">
-            <div className="font-semibold">AgriApp</div>
+            <div className="font-semibold">
+              <img src="../public/farm-logo.png" width={50} height={50} />KeKo AgriApp</div>
             <div className="flex items-center gap-3">
               <span className="text-sm text-gray-600">{user.name} • {user.role}</span>
               <button onClick={logout} className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300">
@@ -78,7 +79,9 @@ export default function App() {
   // When logged in and on the app page, show topbar + role dashboard
   const TopBar = () => (
     <div className="w-full flex justify-between items-center px-4 py-3 border-b bg-white">
-      <div className="font-semibold">AgriApp</div>
+      <div className="font-semibold">
+        <img src="../public/farm-logo.png" width={50} height={50} />KeKo AgriApp
+      </div>
       <div className="flex items-center gap-3">
         <span className="text-sm text-gray-600">{user.name} • {user.role}</span>
         <button onClick={logout} className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300">
