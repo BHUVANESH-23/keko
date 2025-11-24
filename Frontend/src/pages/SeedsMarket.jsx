@@ -95,7 +95,7 @@ export default function SeedsMarket({ user, onClose = null }) {
             >
               <td className="px-4 py-3">{seed.seedName}</td>
               <td className="px-4 py-3">{seed.quantity}</td>
-              <td className="px-4 py-3">${seed.price}</td>
+              <td className="px-4 py-3">₹{seed.price}</td>
               <td className="px-4 py-3">{seed.farmerId.name}</td>
               <td className="px-4 py-3">{seed.farmerLocation || "-"}</td>
 

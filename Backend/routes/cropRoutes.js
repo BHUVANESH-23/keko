@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Crop = require('../models/Crop');
 const User = require('../models/User');
+const twilio = require('twilio');
 
 // Farmer adds crop
 router.post('/add', async (req, res) => {
@@ -27,6 +28,48 @@ router.post('/add', async (req, res) => {
 router.get('/byFarmer/:farmerId', async (req, res) => {
   const crops = await Crop.find({ farmerId: req.params.farmerId });
   res.json(crops);
+});
+
+router.post("/buy", async (req, res) => {
+  const { farmerId, customerId, cropId, notes, quantity } = req.body;
+  const farmer = await User.findById(farmerId);
+  const customer = await User.findById(customerId);
+  const crop = await Crop.findById(cropId);
+
+  if (!farmer || farmer.role !== "farmer")
+    return res.status(400).json({ msg: "Only farmers can request hires" });
+
+  const accountSid = "xxx";
+  const authToken = "yyy";
+  const client = twilio(accountSid, authToken);
+
+  async function createMessage() {
+    try {
+      const message = await client.messages.create({
+        body:
+          customer.name +
+          " { " +
+          customer.phone +
+          " } " +
+          "Requested to buy your " +
+          crop.cropName +
+          " crop about " +
+          quantity +
+          " kg" +
+          ". Please call / message them back to discuss further about your availability.\n\nNotes: " +
+          notes,
+        from: "+13142480934",
+        to: "+91" + farmer.phone,
+      });
+    } catch (err) {
+      console.error(err);
+      res
+        .status(500)
+        .json({ msg: "Failed to send SMS notification", error: err.message });
+    }
+  }
+  createMessage();
+  res.json({ msg: "hire request sent" });
 });
 
 // All crops (for demand overview)

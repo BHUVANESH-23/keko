@@ -46,7 +46,7 @@ export default function Login({ onLogin }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
       <div className="w-full max-w-5xl">
-        <h1 className="text-3xl font-bold text-center mb-8">AgriApp Login</h1>
+        <h1 className="text-3xl font-bold text-center mb-8">KeKo AgriApp Login</h1>
 
         {/* Role Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
