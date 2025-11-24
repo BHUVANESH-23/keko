@@ -8,7 +8,12 @@ export default function FarmerDashboard({ user, setCurrentPage }) {
   const [market, setMarket] = useState([]);
   const [demand, setDemand] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState("");
-  const [crop, setCrop] = useState({ name: "", area: "", quantity: "" });
+  const [crop, setCrop] = useState({
+    name: "",
+    area: "",
+    quantity: "",
+    price: "",
+  });
   const [seed, setSeed] = useState({
     name: "",
     type: "",
@@ -81,6 +86,7 @@ export default function FarmerDashboard({ user, setCurrentPage }) {
       cropName: crop.name,
       area: Number(crop.area || 0),
       quantity: Number(crop.quantity || 0),
+      price: Number(crop.price)
     };
     await axios.post("http://localhost:3001/api/crops/add", payload);
     alert("Crop added successfully!");
@@ -88,7 +94,7 @@ export default function FarmerDashboard({ user, setCurrentPage }) {
       `http://localhost:3001/api/crops/byFarmer/${user._id}`
     );
     setMyCrops(r.data || []);
-    setCrop({ name: "", area: "", quantity: "" });
+    setCrop({ name: "", area: "", quantity: "", price: "" });
   };
 
   const addSeed = async () => {
@@ -201,6 +207,13 @@ export default function FarmerDashboard({ user, setCurrentPage }) {
             onChange={(e) =>
               setCrop((c) => ({ ...c, quantity: e.target.value }))
             }
+          />
+          <input
+            type="number"
+            value={crop.price}
+            placeholder="Price per kg"
+            className="border p-2 rounded"
+            onChange={(e) => setCrop((c) => ({ ...c, price: e.target.value }))}
           />
           <button
             onClick={addCrop}

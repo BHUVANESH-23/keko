@@ -6,7 +6,7 @@ const twilio = require('twilio');
 
 // Farmer adds crop
 router.post('/add', async (req, res) => {
-  const { farmerId, cropName, area, quantity, expectedYield } = req.body;
+  const { farmerId, cropName, area, quantity, price, expectedYield } = req.body;
 
   const farmer = await User.findById(farmerId);
   if (!farmer || farmer.role !== 'farmer') {
@@ -18,6 +18,7 @@ router.post('/add', async (req, res) => {
     cropName,
     area: Number(area) || 0,
     quantity: Number(quantity) || 0,
+    price: Number(price) || 0,
     expectedYield: Number(expectedYield) || 0,
   });
 
