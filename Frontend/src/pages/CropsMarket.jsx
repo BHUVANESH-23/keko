@@ -178,7 +178,7 @@ export default function CropsMarket({ onClose = null }) {
                   <div>
                     <h3 className="text-xl font-semibold">{crop.name}</h3>
                     <p className="text-sm text-gray-500">Available: {crop.totalYield} {crop.unit}</p>
-                    <p className="text-sm text-gray-500">Remaining (global): {serverRemaining} {crop.unit}</p>
+                    <p className="text-sm text-green-600 font-semibold">Remaining (global): {serverRemaining} {crop.unit}</p>
                   </div>
                   <div className="text-lg font-bold text-green-600">₹{Number(crop.price).toLocaleString()}</div>
                 </div>

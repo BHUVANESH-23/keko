@@ -1,5 +1,5 @@
 const express = require('express');
-require('dotenv').config();
+require('dotenv');
 const twilio = require("twilio");
 const router = express.Router();
 const Hire = require('../models/Hire');
@@ -16,8 +16,8 @@ router.post('/request', async (req, res) => {
     if (!helper || helper.role !== 'helper') return res.status(400).json({ msg: 'Target must be a helper' });
     const hire = new Hire({ farmerId, helperId, cropId: cropId || null, notes });
     await hire.save();
-    const accountSid = process.env.Twilio_SID;
-    const authToken = process.env.Twilio_Auth_Token;
+    // const accountSid = 'xxxxx';
+    // const authToken = 'yyyyyy';
     const client = twilio(accountSid, authToken);
 
     async function createMessage() {

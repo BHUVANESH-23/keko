@@ -1,8 +1,11 @@
+
+
 const express = require('express');
+require('dotenv');
 const router = express.Router();
+const User = require("../models/User");
+const Vehicle = require("../models/Vehicle");
 const Registration = require('../models/Registration');
-const Vehicle = require('../models/Vehicle');
-const User = require('../models/User');
 
 // Farmer registers transporter vehicle
 router.post('/registerVehicle', async (req, res) => {
@@ -31,4 +34,27 @@ router.get('/:farmerId', async (req, res) => {
   res.json(regs);
 });
 
+// Farmer adds Seeds
+router.post("/add", async (req, res) => {
+  const { farmerId, seedName, price, quantity, location, farmerMobile } =
+    req.body;
+
+  const farmer = await User.findById(farmerId);
+  if (!farmer || farmer.role !== "farmer") {
+    return res.status(403).json({ msg: "Only farmers can add Seeds" });
+  }
+
+  const seed = await Seed.create({
+    farmerId,
+    seedName,
+    price: Number(price) || 0,
+    quantity: Number(quantity) || 0,
+    farmerLocation: location,
+    farmerMobile,
+  });
+
+  res.json(seed);
+});
+
 module.exports = router;
+

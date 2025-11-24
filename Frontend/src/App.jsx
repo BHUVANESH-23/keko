@@ -7,6 +7,7 @@ import FarmerDashboard from "./pages/FarmerDashboard";
 import TransporterDashboard from "./pages/TransporterDashboard";
 import HelperDashboard from "./pages/HelperDashboard";
 import CustomerDashboard from "./pages/CustomerDashboard";
+import SeedsMarket from "./pages/SeedsMarket";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -59,6 +60,27 @@ export default function App() {
           </div>
         )}
         <CropsMarket onClose={() => setCurrentPage("app")} />
+      </div>
+    );
+  }
+
+  if (currentPage === "seeds") {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {/* show topbar when logged in */}
+        {user && (
+          <div className="w-full flex justify-between items-center px-4 py-3 border-b bg-white">
+            <div className="font-semibold">
+              <img src="../public/farm-logo.png" width={50} height={50} />KeKo AgriApp</div>
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-600">{user.name} • {user.role}</span>
+              <button onClick={logout} className="text-sm px-3 py-1 rounded bg-gray-200 hover:bg-gray-300">
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
+        <SeedsMarket user={user} onClose={() => setCurrentPage("app")} />
       </div>
     );
   }
