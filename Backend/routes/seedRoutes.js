@@ -54,7 +54,7 @@ router.post("/buy", async (req, res) => {
           " { " +
           farmer.phone +
           " } " +
-          "Requested to buy your" +
+          "Requested to buy your " +
           seed.seedName +
           " seed about " +
           quantity +
